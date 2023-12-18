@@ -10,26 +10,26 @@ OVERLAY_PATH=${BR2_DL_DIR}/${STHFS_PKG}/overlay
 
 if [ ! -d ${BR2_DL_DIR}/${REVENTON_PKG} ]; then
         echo "**** ${REVENTON_PKG} cloning   ****"
-        pushd ${BR2_DL_DIR}
+        pushd ${BR2_DL_DIR} > /dev/null 2>&1
         git clone https://github.com/StoneHEX/${REVENTON_PKG}.git
-        popd
+        popd > /dev/null 2>&1
 else
         echo "**** ${REVENTON_PKG} present,updating  ****"
-        pushd ${BR2_DL_DIR}/${REVENTON_PKG}
+        pushd ${BR2_DL_DIR}/${REVENTON_PKG} > /dev/null 2>&1
         git pull
-        popd
+        popd > /dev/null 2>&1
 fi
 
 if [ ! -d ${BR2_DL_DIR}/${STHFS_PKG} ]; then
         echo "**** ${STHFS_PKG} cloning   ****"
-        pushd ${BR2_DL_DIR}
+        pushd ${BR2_DL_DIR} > /dev/null 2>&1
         git clone https://github.com/StoneHEX/${STHFS_PKG}.git
-        popd
+        popd > /dev/null 2>&1
 else
         echo "**** ${STHFS_PKG} present,updating  ****"
-        pushd ${BR2_DL_DIR}/${STHFS_PKG}
+        pushd ${BR2_DL_DIR}/${STHFS_PKG} > /dev/null 2>&1
         git pull
-        popd
+        popd > /dev/null 2>&1
 fi
 rm -rf output/build/${REVENTON_PKG} output/build/${STHFS_PKG}
 cp -a ${BR2_DL_DIR}/${REVENTON_PKG} output/build/.
