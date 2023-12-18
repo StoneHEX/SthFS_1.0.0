@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# sshd        Starts sshd.
+#
+
+# Make sure the ssh-keygen progam exists
+[ -f /usr/bin/ssh-keygen ] || exit 0
+
+. /etc/sysconfig/system_vars
+
+umask 077
+
+start() {
+	printf "Starting sshd: "
+	mount /dev/${BOOT_DEVICE} /mnt
+	if [ -d /mnt/sysconfig/ssh ]; then
+		cp -r /mnt/sysconfig/ss* /etc/.
+		chmod 0600 /etc/ssh/*
+		chmod 0600 /etc/ssl/*
+	else
+		# Create any missing keys
+		/usr/bin/ssh-keygen -A
+		cp -r /etc/ss* /mnt/sysconfig/.
+		chmod 0600 /mnt/sysconfig/ssh/*
+		chmod 0600 /mnt/sysconfig/ssl/*
+	fi
+	umount /mnt
+
+	cat /etc/passwd | grep sshd  >/dev/null 2>&1
+	[ "$?" = "1" ] &&  echo "sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin" >> /etc/passwd
+	# sets a temporary password for root
+	echo -e "reventon\nreventon" | passwd
+	/bin/chpasswd root reventon
+
+	/usr/sbin/sshd
+	touch /var/lock/sshd
+	echo "OK"
+}
+stop() {
+	printf "Stopping sshd: "
+	killall sshd
+	rm -f /var/lock/sshd
+	echo "OK"
+}
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart|reload)
+	restart
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+

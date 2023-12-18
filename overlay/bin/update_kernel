@@ -1,0 +1,17 @@
+#!/bin/sh
+. /etc/sysconfig/system_vars
+get_exec ${KERNEL}
+[ "$?" = "1" ] && exit 1
+get_exec ${DTB}
+[ "$?" = "1" ] && exit 1
+get_exec ${BOOTSCRIPT}
+[ "$?" = "1" ] && exit 1
+rm -rf /tmp/update_dir
+mkdir /tmp/update_dir
+mount /dev/${BOOT_DEVICE} /tmp/update_dir
+cp /tmp/${KERNEL} /tmp/update_dir/.
+cp /tmp/${DTB} /tmp/update_dir/.
+
+[ ! -d /tmp/update_dir/boot ] && mkdir /tmp/update_dir/boot
+cp /tmp/${BOOTSCRIPT} /tmp/update_dir/boot/.
+umount /tmp/update_dir
