@@ -31,6 +31,9 @@ else
         git pull
         popd
 fi
+rm -rf output/build/${REVENTON_PKG} output/build/${STHFS_PKG}
+cp -a ${BR2_DL_DIR}/${REVENTON_PKG} output/build/.
+cp -a ${BR2_DL_DIR}/${STHFS_PKG} output/build/.
 
 cp -a ${OVERLAY_PATH}/* ${ROOTFS_PATH}
 IP=`hostname -I | awk '{print $1}'`
