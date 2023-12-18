@@ -1,6 +1,5 @@
 REFERENCE_SERVER=192.168.10.207
 BOOT_DEVICE=mmcblk1p1
 KERNEL=Image
-DTB=imx8mm-var-som-symphony.dtb
 BOOTSCRIPT=boot.scr
 FS=uInitrd
