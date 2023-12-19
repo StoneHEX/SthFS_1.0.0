@@ -5,6 +5,8 @@ CURRENT=`pwd`
 ROOTFS_PATH=$CURRENT/output/target
 STHFS_PKG=SthFS_1.0.0
 DTB=imx8mm-var-som-symphony.dtb
+DTB1=imx8mm-ddr4-evk-revb-rm67191.dtb
+DTB2=imx8mm-evk-rm67191.dtb
 OVERLAY_PATH=${BR2_DL_DIR}/${STHFS_PKG}/overlay
 
 if [ ! -d ${BR2_DL_DIR}/${STHFS_PKG} ]; then
@@ -24,7 +26,7 @@ IP=`hostname -I | awk '{print $1}'`
 echo "REFERENCE_SERVER=${IP}" > ${ROOTFS_PATH}/etc/sysconfig/system_vars
 echo "BOOT_DEVICE=mmcblk1p1" >> ${ROOTFS_PATH}/etc/sysconfig/system_vars
 echo "KERNEL=Image" >> ${ROOTFS_PATH}/etc/sysconfig/system_vars
-echo "DTB=${DTB}" >> ${ROOTFS_PATH}/etc/sysconfig/system_vars
+echo "DTB=${DTB1}" >> ${ROOTFS_PATH}/etc/sysconfig/system_vars
 echo "BOOTSCRIPT=boot.scr" >> ${ROOTFS_PATH}/etc/sysconfig/system_vars
 echo "FS=uInitrd" >> ${ROOTFS_PATH}/etc/sysconfig/system_vars
 
