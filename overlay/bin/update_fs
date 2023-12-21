@@ -1,8 +1,8 @@
 #!/bin/sh
 . /etc/sysconfig/system_vars
-get_exec ${FS}       
+get_exec ${FS_SRC}       
 rm -rf /tmp/update_dir
 mkdir /tmp/update_dir
 mount /dev/${BOOT_DEVICE} /tmp/update_dir
-cp /tmp/${FS} /tmp/update_dir/.
+cp /tmp/${FS_SRC} /tmp/update_dir/${FS_DEST}
 umount /tmp/update_dir
