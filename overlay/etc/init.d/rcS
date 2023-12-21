@@ -5,16 +5,6 @@
 # executing them in numerical order.
 #
 
-. /etc/sysconfig/system_vars
-mount /dev/${BOOT_DEVICE} /mnt
-if [ -d /mnt/sysconfig ]; then
-	cp -a /mnt/sysconfig/* /etc/sysconfig/.
-else
-	mkdir /mnt/sysconfig
-	cp -a /etc/sysconfig/* /mnt/sysconfig/.
-fi
-umount /mnt
-
 for i in /etc/init.d/S??* ;do
 
      # Ignore dangling symlinks (if any).
